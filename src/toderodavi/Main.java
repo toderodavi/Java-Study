@@ -17,117 +17,65 @@ public class Main {
         *  Switch statement - switch(variable) case (case):
         *  For loop
         *  While loop
+        *  Ternary Operator (condition) ? "result1" : "else"
+        *  Casting is when you directly change the type of variable by (type)variable. Ex: (int)number1
+        *  Strings also posses METHODS, just like: parse, charAt, toUpperCase, toLowerCase, split, contains
+        *  Methods are functions inside Classes (like this one). They are written inside the class but outside
+        *  other methods. Generally, their syntax are "public static *return type* *name of the method*",
+        *  being void a method that doesn't return something. after the name, there is the (parameters).
+        *  Arrays here work quite differently from others. To create an Array, you declare a variable.
+        *  On their type, you include [], equalling it to new (type)[*number of array items*]
+        *  Other than that, there is also the Collections. Collections can be: Lists, Sets and Maps.
+        *  They more or less are ways of making a List of Arrays. Generally speaking, the Array type
+        *  Usually uses less memory space. Collections, on other hand, uses way more memory.
+        *
         * */
-
-
-        /*
-        * I need to show the options of the program for the user
-        * I need to receive the input (option) of the user
-        * receive the two numbers
-        * output the result and fallback for the initial options
-        * */
-
         Scanner scanner = new Scanner(System.in);
+        String option;
         double x;
         double y;
-        double result;
-        boolean calculatorOn = true;
-        String option;
 
-        while(calculatorOn) {
-            System.out.println("Choose the operation!");
-            System.out.println("Type 'addition' for addition");
-            System.out.println("Type 'subtraction' for subtraction");
-            System.out.println("Type 'multiplication' for multiplication");
-            System.out.println("Type 'division' for division");
-            System.out.println("Type 'exit' to exit the program");
+        while(true) {
+            System.out.println("Choose + or 'add' for addition, - or 'sub' for subtraction, * or 'multi' for multiplication, / or 'div' for division.");
             option = scanner.nextLine();
-
-            switch(option) {
-                case "addition":
-                    System.out.println("Addition was selected");
-                    System.out.println("Insert the first value:");
-                        x = scanner.nextInt();
-                    System.out.println("Insert the second value:");
-                        y = scanner.nextInt();
-                        result = x + y;
-                    System.out.println("Result: " + result);
-                    System.out.println("------------------");
-                    System.out.println("Do you wish to exit the calculator?");
-                    System.out.println("Type 'yes' to exit or anything else to continue");
-                        scanner.nextLine();
-                        option = scanner.nextLine();
-                    if (option.equals("yes")) {
-                            calculatorOn = false;
-                            break;
-                        }
-                    break;
-
-                case "subtraction":
-                    System.out.println("Subtraction was selected");
-                    System.out.println("Insert the first value:");
-                    x = scanner.nextInt();
-                    System.out.println("Insert the second value:");
-                    y = scanner.nextInt();
-                    result = x - y;
-                    System.out.println("Result: " + result);
-                    System.out.println("------------------");
-                    System.out.println("Do you wish to exit the calculator?");
-                    System.out.println("Type 'yes' to exit or anything else to continue");
-                    scanner.nextLine();
-                    option = scanner.nextLine();
-                    if (option.equals("yes")) {
-                        calculatorOn = false;
-                        break;
-                    }
-                    break;
-
-                case "multiplication":
-                    System.out.println("Multiplication was selected");
-                    System.out.println("Insert the first value:");
-                    x = scanner.nextInt();
-                    System.out.println("Insert the second value:");
-                    y = scanner.nextInt();
-                    result = x * y;
-                    System.out.println("Result: " + result);
-                    System.out.println("------------------");
-                    System.out.println("Do you wish to exit the calculator?");
-                    System.out.println("Type 'yes' to exit or anything else to continue");
-                    scanner.nextLine();
-                    option = scanner.nextLine();
-                    if (option.equals("yes")) {
-                        calculatorOn = false;
-                        break;
-                    }
-                    break;
-
-                case "division":
-                    System.out.println("Division was selected");
-                    System.out.println("Insert the first value:");
-                    x = scanner.nextInt();
-                    System.out.println("Insert the second value:");
-                    y = scanner.nextInt();
-                    result = x / y;
-                    System.out.println("Result: " + result);
-                    System.out.println("------------------");
-                    System.out.println("Do you wish to exit the calculator?");
-                    System.out.println("Type 'yes' to exit or anything else to continue");
-                    scanner.nextLine();
-                    option = scanner.nextLine();
-                    if (option.equals("yes")) {
-                        calculatorOn = false;
-                        break;
-                    }
-                    break;
-
-                case "exit":
-                    calculatorOn = false;
-                    break;
-
-                default:
-                    System.out.println("No option was selected.");
-                    break;
+            System.out.println(option + " selected.");
+            System.out.println("Insert the first number:");
+            x = scanner.nextDouble();
+            System.out.println("Insert the second number:");
+            y = scanner.nextDouble();
+            scanner.nextLine();
+            System.out.println("Result: " + calculatorOperation(option, x, y));
+            System.out.println("-----------------");
+            System.out.println("Type 'yes' if you wish to keep using the calculator.");
+            option = scanner.nextLine();
+            if(turnCalculatorOff(option)) {
+                break;
             }
         }
     }
+
+    public static double calculatorOperation(String option, Double x, Double y) {
+        switch (option) {
+            case "+", "add" -> {
+                return x + y;
+            }
+            case "-", "sub" -> {
+                return x - y;
+            }
+            case "*", "multi" -> {
+                return x * y;
+            }
+            case "/", "div" -> {
+                if (x == 0 || y == 0) {
+                    return 0;
+                }
+                return x / y;
+            }
+        }
+        return 0;
+    }
+    public static boolean turnCalculatorOff(String option) {
+        return !option.equals("yes");
+    }
 }
+
